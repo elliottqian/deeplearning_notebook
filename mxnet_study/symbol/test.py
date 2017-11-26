@@ -1,6 +1,5 @@
 import mxnet as mx
 
-
 X = mx.symbol.Variable("X")
 y = mx.symbol.Variable("y")
 
