@@ -5,6 +5,7 @@ import mxnet.gluon.nn as mgnn
 
 
 class FM(mgnn.Block):
+    
     def __init__(self, hidden_dim, user_dim, item_dim, **kwargs):
         super(FM, self).__init__(**kwargs)
         self.hidden_dim = hidden_dim
@@ -17,19 +18,24 @@ class FM(mgnn.Block):
 
     def forward(self, x):
         """
-
+        docstring here
+        :param self: 
         :param x:
-        :type x: mx.ndarray
-        :return:
+        :type x: mx.symbol.Flatten
         """
         user = x[:, 0]
         item = x[:, 1]
         emb_user = mx.ndarray.flatten(self.embedding_user(user))
         emb_item = mx.ndarray.flatten(self.embedding_item(item))
         r = mx.nd.sum(emb_user * emb_item, axis=1)
+        
         return r
 
     def print_params(self):
+        """
+        docstring here
+        :param self: 
+        """  
         print(self.collect_params())
         print(self.name_scope())
         print(self.prefix)
