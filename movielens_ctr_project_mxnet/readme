@@ -1,0 +1,21 @@
+# 实现常用的点击率模型
+
+大概有12种
+
+
+layer: 常见的layer包
+model: 常见的模型包
+
+unit_test: jupyter-notebook 测试包
+
+model_test: 模型测试包
+
+gluon_tool: gluon常用工具包, 包括IO, 训练等等
+
+
+
+
+
+
+
+
