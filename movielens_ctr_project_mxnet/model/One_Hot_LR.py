@@ -21,3 +21,21 @@ def get_ont_hot_lr(dim_arr, ctx=mx.cpu()):
     my_net.initialize(ctx=ctx)
     my_net.hybridize()
     return my_net
+
+
+def get_embedding_hot_lr():
+    my_net = gluon.nn.HybridSequential()
+    with my_net.name_scope():
+        pass
+
+
+"""
+deep wide model
+"""
+
+
+class DW(gluon.nn.HybridBlock):
+
+    def __init__(self):
+
+        pass
