@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from mxnet import gluon
+import mxnet as mx
 from layer.MyEmbedding import MyMutEmbeddingHb
 
 
@@ -11,7 +12,14 @@ class EmbeddingFm(gluon.nn.HybridBlock):
         self.feature_size = feature_size
 
     def hybrid_forward(self, F, x, *args, **kwargs):
+        """
 
+        :param F: mx.nd or mx.sym
+        :param x: The first input tensor.
+        :param args: ist of Symbol or list of NDArray Additional input tensors.
+        :param kwargs:
+        :return:
+        """
         tensor_list = []
         for i in range(self.feature_size):
             for j in range(i + 1, self.feature_size):
@@ -29,16 +37,21 @@ class EmbeddingFm(gluon.nn.HybridBlock):
         return r
 
 
-def get_deep_fm(dim_array, embedding_size):
+def get_deep_fm(dim_array, embedding_size, ctx=mx.cpu()):
     """
 
-    :type embedding_size: int
-    :type dim_array: list
     :param dim_array:
     :param embedding_size:
+    :param ctx:
     :return:
     """
     net = gluon.nn.HybridSequential(prefix="elliottqian_")
     with net.name_scope():
         net.add(MyMutEmbeddingHb(dim_array, embedding_size))
-    pass
+        net.add(EmbeddingFm(len(dim_array)))
+        net.add(gluon.nn.Flatten())
+        net.add(gluon.nn.Dense(80, activation="relu"))
+        net.add(gluon.nn.Dense(1, activation="sigmoid"))
+    net.initialize(ctx=ctx)
+    net.hybridize()
+    return net
