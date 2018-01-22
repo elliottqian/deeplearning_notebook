@@ -29,13 +29,3 @@ def get_embedding_hot_lr():
         pass
 
 
-"""
-deep wide model
-"""
-
-
-class DW(gluon.nn.HybridBlock):
-
-    def __init__(self):
-
-        pass
